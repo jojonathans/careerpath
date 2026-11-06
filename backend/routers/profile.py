@@ -21,30 +21,32 @@ def get_user_profile(
     user_id: int,
     db: Session = Depends(get_db)
 ):
+    # sql = text ("select * from user_profiles;")
     sql = text("""
         SELECT
-            id,
-            user_id,
-            first_name,
-            last_name,
-            phone,
-            address,
-            bio,
-            link_fb,
-            link_x,
-            link_linkedin,
-            link_ig,
-            link_github
+            a.id,
+            a.user_id,
+            a.first_name,
+            a.last_name,
+            a.phone,
+            a.address,
+            a.bio,
+            b.link_fb,
+            b.link_x,
+            b.link_linkedin,
+            b.link_ig,
+            b.link_github
         FROM user_profiles a 
         left join user_social_links b on b.user_id = a.user_id
-        WHERE user_id = :user_id
+        WHERE a.user_id = :user_id
         LIMIT 1
     """)
 
     result = db.execute(sql,{"user_id": user_id} )
+    # result = db.execute(sql)
 
     profile = result.mappings().first()
-
+    
     if not profile:
         raise HTTPException(
             status_code=404,
