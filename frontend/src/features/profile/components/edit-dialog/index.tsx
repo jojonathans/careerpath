@@ -12,7 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { PersonalInfo } from "../types";
+import { PersonalInfo } from "./types";
 import AvatarUploadSection from "./avatar-upload-section";
 import PersonalDetailsFields from "./personal-details-fields";
 import { personalInfoSchema, type PersonalInfoFormData } from "./schema";
@@ -34,7 +34,7 @@ export default function EditPersonalInfoDialog({
   const [avatarFileUrl, setAvatarFileUrl] = useState<string | null>(null);
 
   const previewAvatarUrl =
-    avatarFileUrl || initialData.avatarUrl || "/images/user/user-01.jpg";
+    "/images/user/user-01.jpg";
 
   const {
     register,
@@ -43,16 +43,16 @@ export default function EditPersonalInfoDialog({
   } = useForm<PersonalInfoFormData>({
     resolver: zodResolver(personalInfoSchema),
     values: {
-      firstName: initialData.firstName,
-      lastName: initialData.lastName,
-      email: initialData.email,
+      firstName: initialData.first_name,
+      lastName: initialData.last_name,
+      email: "",
       phone: initialData.phone,
       bio: initialData.bio,
-      facebook: initialData.socialLinks.facebook,
-      x: initialData.socialLinks.x,
-      linkedin: initialData.socialLinks.linkedin,
-      instagram: initialData.socialLinks.instagram,
-      avatarUrl: initialData.avatarUrl,
+      facebook: initialData.link_fb,
+      x: initialData.link_x,
+      linkedin: initialData.link_linkedin,
+      instagram: initialData.link_ig,
+      avatarUrl: "/images/user/user-01.jpg",
     },
     mode: "onTouched",
   });
@@ -122,6 +122,9 @@ export default function EditPersonalInfoDialog({
 
               {/* Footer Actions */}
               <div className="flex flex-col-reverse justify-end gap-3 pt-3 sm:flex-row">
+                <Button type="submit" disabled={isSubmitting}>
+                  Save Changes
+                </Button>
                 <Button
                   type="button"
                   variant="outline"
@@ -129,9 +132,7 @@ export default function EditPersonalInfoDialog({
                 >
                   Close
                 </Button>
-                <Button type="submit" disabled={isSubmitting}>
-                  Save Changes
-                </Button>
+                
               </div>
             </form>
           </div>

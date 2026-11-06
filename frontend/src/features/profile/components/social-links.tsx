@@ -10,27 +10,28 @@ import { SocialLinksProps } from "../types";
 
 export default function SocialLinks({
   socialLinks,
-  className,
+  className,  
 }: SocialLinksProps) {
+  // console.log("coba" +   socialLinks['link_fb']); 
   const links = [
     {
       name: "Facebook",
-      href: socialLinks.facebook || "#",
+      href: socialLinks.link_fb || "#",
       icon: <FacebookIcon className="size-5 fill-current" />,
     },
     {
       name: "X",
-      href: socialLinks.x || "#",
+      href: socialLinks.link_x || "#",
       icon: <TwitterXIcon className="size-5 fill-current" />,
     },
     {
       name: "LinkedIn",
-      href: socialLinks.linkedin || "#",
+      href: socialLinks.link_linkedin || "#",
       icon: <LinkedinIcon className="size-5 fill-current" />,
     },
     {
       name: "Instagram",
-      href: socialLinks.instagram || "#",
+      href: socialLinks.link_ig || "#",
       icon: <InstagramIcon className="size-5 fill-current" />,
     },
   ];

@@ -24,19 +24,19 @@ def get_user_profile(
     # sql = text ("select * from user_profiles;")
     sql = text("""
         SELECT
-            a.id,
-            a.user_id,
-            a.first_name,
-            a.last_name,
-            a.phone,
-            a.address,
-            a.bio,
-            b.link_fb,
-            b.link_x,
-            b.link_linkedin,
-            b.link_ig,
-            b.link_github
-        FROM user_profiles a 
+            coalesce(a.id, "" ) as id ,  
+            coalesce(a.user_id, "" ) as user_id ,  
+            coalesce(a.first_name, "" ) as first_name ,  
+            coalesce(a.last_name, "" ) as last_name ,  
+            coalesce(a.phone, "" ) as phone ,  
+            coalesce(a.address, "" ) as address ,  
+            coalesce(a.bio, "" ) as bio ,  
+            coalesce(b.link_fb, "" ) as link_fb ,  
+            coalesce(b.link_x, "" ) as link_x ,  
+            coalesce(b.link_linkedin, "" ) as link_linkedin ,  
+            coalesce(b.link_ig, "" ) as link_ig ,  
+            coalesce(b.link_github , "" ) as link_github           
+            FROM user_profiles a 
         left join user_social_links b on b.user_id = a.user_id
         WHERE a.user_id = :user_id
         LIMIT 1
